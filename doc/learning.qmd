@@ -2,6 +2,10 @@
 title: "Draft Quarto document"
 author: "Your Name"
 format: html
+editor: 
+  markdown:
+      wrap: 72
+      canonical: true
 execute:
   echo: true
 ---
@@ -17,3 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Code chunk
 ```
 
+## This is poorly formatted
+
+-   This is item 1
+-   This is item 2
