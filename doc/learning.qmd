@@ -13,8 +13,19 @@ execute:
 ## Header 1
 
 ```{r setup}
-#| include: false
-knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+source(here::here("R/functions.R"))
+lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+```
+
+## Basic statistics
+
+```{r basic-stats}
+descriptive_stats(lipidomics)
+```
+
+```{r}
+
 ```
 
 ```{r}
