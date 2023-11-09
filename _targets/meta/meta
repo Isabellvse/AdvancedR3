@@ -1,0 +1,5 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+descriptive_stats|function|51a9420415a7af6a|||||||||||||||
+df_stats_by_metabolite|stem|a49e89a26ecbd55a|06bc50c38cf95e77|76db17b5529f9d21|1571712024||t19670.3751713152s|a0252f4d8dc0f410|403|rds|local|vector|||0.19||
+file|stem|301125be9d4645ea|6f5a37980713f8c6|ef46db3751d8e999|-1301001980|data/lipidomics.csv|t19632.5328013823s|6f631a918b070454|24313|file|local|vector|||0|pakke tibble blev bygget under R version 4.3.2|
+lipidomics|stem|6c7c870951074622|7940706ee8ea8eb8|74cf55e34db4cd4e|-1170387675||t19670.3892471153s|30e7dd23cf8c9239|4884|rds|local|vector|||0.39||
