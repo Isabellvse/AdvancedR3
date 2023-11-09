@@ -21,3 +21,5 @@ Suggests:
     styler
 URL: https://github.com/Isabellvse/AdvancedR3
 BugReports: https://github.com/Isabellvse/AdvancedR3/issues
+Depends: 
+    tidyverse
