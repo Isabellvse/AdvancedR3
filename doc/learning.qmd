@@ -53,13 +53,8 @@ lipidomics %>% metabolites_to_wider()
 
 ```{r}
 lipidomics_wide <- lipidomics %>%
-  mutate(metabolite = snakecase::to_snake_case(metabolite)) %>%
-  pivot_wider(
-    names_from = metabolite,
-    values_from = value,
-    values_fn = mean,
-    names_prefix = "metabolite_"
-  )
+  column_values_to_snake_case(cols = metabolite) %>%
+  metabolites_to_wider()
 ```
 
 ```{r}
@@ -80,4 +75,35 @@ recipe_specs <- lipidomics_wide %>%
   create_recipe_spec(metabolite_lipid_ch_3_1)
 
 recipe_specs
+```
+
+```{r}
+workflow() %>%
+  add_model(log_ref_specs) %>%
+  add_recipe(recipe_specs)
+```
+
+```{r}
+model_workflow <- create_model_workflow(
+  logistic_reg() %>%
+    set_engine("glm"),
+  lipidomics_wide %>%
+    create_recipe_spec(metabolite_lipid_ch_3_1)
+)
+model_workflow
+```
+
+```{r}
+fitted_model <- model_workflow %>%
+  fit(lipidomics_wide)
+fitted_model
+```
+
+```{r}
+fitted_model %>%
+  workflows::extract_fit_parsnip() %>%
+  broom::tidy(exponentiate = TRUE)
+```
+
+```{r}
 ```
