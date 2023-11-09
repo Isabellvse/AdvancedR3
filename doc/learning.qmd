@@ -16,6 +16,8 @@ execute:
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(targets)
+library(tidymodels)
+source(here::here("R/functions.R"))
 lipidomics <- targets::tar_read(lipidomics)
 ```
 
