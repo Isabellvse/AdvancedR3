@@ -25,7 +25,7 @@ descriptive_stats(lipidomics)
 ```
 
 ```{r}
-
+metabolite_distribution_plot(lipidomics)
 ```
 
 ```{r}
