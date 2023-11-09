@@ -13,26 +13,21 @@ execute:
 ## Header 1
 
 ```{r setup}
+targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
-source(here::here("R/functions.R"))
-lipidomics <- read_csv(here::here("data/lipidomics.csv"))
+library(targets)
+lipidomics <- targets::tar_read(lipidomics)
 ```
 
-## Basic statistics
+## Results
 
-```{r basic-stats}
-descriptive_stats(lipidomics)
+```{r}
+targets::tar_read(df_stats_by_metabolite) %>% 
+    dplyr::mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>% 
+    dplyr::select(Metabolite = metabolite, `Mean SD` = MeanSD) %>% 
+    knitr::kable(caption = "Descriptive statistics of the metabolites")
 ```
 
 ```{r}
-metabolite_distribution_plot(lipidomics)
+targets::tar_read(fig_metabolite_distrubution)
 ```
-
-```{r}
-# Code chunk
-```
-
-## This is poorly formatted
-
--   This is item 1
--   This is item 2
