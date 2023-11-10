@@ -16,3 +16,9 @@ knitr:
     echo: false
     warning: false
     message: false
+editor:
+  markdown:
+    wrap: 72
+    canonical: true
+execute:
+  freeze: auto
