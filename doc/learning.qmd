@@ -17,8 +17,6 @@ execute:
 ## Header 1
 
 ```{r setup}
-#| warning: false
-#| message: false
 targets::tar_config_set(store = here::here("_targets"))
 library(tidyverse)
 library(targets)
