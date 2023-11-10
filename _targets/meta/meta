@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|5caed2b4fe26847c|||||||||||||||
+.Random.seed|object|989e62ea51cf3a92|||||||||||||||
 add_original_metabolite_names|function|03c57c4b0dda20c1|||||||||||||||
 calculate_estimates|function|1f9e55bdc03cefe4|||||||||||||||
 column_values_to_snake_case|function|519daead90d726ce|||||||||||||||
@@ -10,13 +10,13 @@ df_model_estimates|stem|75c06c02d52604e8|c54121e4cf891739|d7acf4c8efdb420a|69475
 df_stats_by_metabolite|stem|a49e89a26ecbd55a|06bc50c38cf95e77|76db17b5529f9d21|1571712024||t19670.3751713152s|a0252f4d8dc0f410|403|rds|local|vector|||0.19||
 fig_metabolite_distrubution|stem|36942d5fb58afa05|fab028a148ebe7e6|e7f319118fa9f2b6|1620735169||t19670.4244968152s|6f52cfc5c87f16f1|78249|rds|local|vector|||0.02||
 fig_model_estimates|stem|6f3e527845caa5a8|16a1b6385d9d61a3|ff079567c22cebc2|1462996731||t19671.4290281169s|0840109bd4e99dfa|53037|rds|local|vector|||0||
-file|stem|301125be9d4645ea|6f5a37980713f8c6|ef46db3751d8e999|-1301001980|data/lipidomics.csv|t19632.5328013823s|6f631a918b070454|24313|file|local|vector|||0|pakke tibble blev bygget under R version 4.3.2|
+file|stem|768e973db5d94bf7|6f5a37980713f8c6|ef46db3751d8e999|-1301001980|data/lipidomics.csv|t19671.5338740794s|d4615a4de7b11c6d|24818|file|local|vector|||4.19|pakke usethis blev bygget under R version 4.3.2. pakke readr blev bygget under R version 4.3.2. pakke dplyr blev bygget under R version 4.3.2. pakke fs blev bygget under R version 4.3.2. pakke here blev bygget under R version 4.3.2. pakke readxl blev bygget under R version 4.3.2. pakke snakecase blev bygget under R version 4.3.2. pakke stringr blev bygget under R version 4.3.2. pakke tidyr blev bygget under R version 4.3.2. pakke broom blev bygget under R version 4.3.2. pakke ggplot2 blev bygget under R version 4.3.2. pakke knitr blev bygget under R version 4.3.2. pakke parsnip blev bygget under R version 4.3.2. pakke quarto blev bygget under R version 4.3.2. pakke recipes blev bygget under R version 4.3.2. pakke rmarkdown blev bygget under R version 4.3.2. pakke workflows blev bygget under R version 4.3.2. pakke tidymodels blev bygget under R version 4.3.2. pakke dials blev bygget under R version 4.3.2. pakke scales blev bygget under R version 4.3.2. pakke infer blev bygget under R version 4.3.2. pakke modeldata blev bygget under R version 4.3.2. pakke purrr blev bygget under R version 4.3.2. pakke rsample blev bygget under R version 4.3.2. pakke tibble blev bygget under R version 4.3.2. pakke tune blev bygget under R version 4.3.2. pakke workflowsets blev bygget under R version 4.3.2. pakke yardstick blev bygget under R version 4.3.2. pakke tidyverse blev bygget under R version 4.3.2. pakke forcats blev bygget under R version 4.3.2. pakke lubridate blev bygget under R version 4.3.2. pakke glue blev bygget under R version 4.3.2. pakke tidyselect blev bygget under R version 4.3.2|
 generate_model_results|function|6a9305f91da0e052|||||||||||||||
-lipidomics|stem|6c7c870951074622|7940706ee8ea8eb8|74cf55e34db4cd4e|-1170387675||t19670.3892471153s|30e7dd23cf8c9239|4884|rds|local|vector|||0.39||
+lipidomics|stem|6c7c870951074622|7940706ee8ea8eb8|20e349d4e45942fb|-1170387675||t19671.5361937575s|30e7dd23cf8c9239|4884|rds|local|vector|||0.47||
 metabolites_to_wider|function|8eff1105ed5e7f18|||||||||||||||
 plot_distributions|function|67ddeb7fc6404076|||||||||||||||
 plot_estimates|function|ad68aa9127ee63db|||||||||||||||
 quarto_doc|stem|61d22457befc5774|94fffc87ef411a5a|b142182126ee1c6b|1886859688|doc/learning.html*doc/learning.qmd|t19671.4291595579s||31302|file|local|vector|||||_paths_ missing files doclearning.html
-quarto_website|stem|e4a69387d9891064|cfac3d86a9cbc01b|b142182126ee1c6b|1602464050|_site*doc/learning.qmd*index.qmd*_quarto.yml|t19671.5258872184s|8a0a8bdc6d0e55e9|981683|file|local|vector|||11.84||
+quarto_website|stem|87a5805b09273149|cfac3d86a9cbc01b|b142182126ee1c6b|1602464050|_site*doc/learning.qmd*index.qmd*_quarto.yml|t19671.5362303369s|11d78580504eb2d0|981715|file|local|vector|||2.87||
 split_by_metabolite|function|90dfd7fc488fcdbb|||||||||||||||
 tidy_model_output|function|4ff0d9127acce476|||||||||||||||
