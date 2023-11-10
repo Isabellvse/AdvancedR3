@@ -151,3 +151,16 @@ lipidomics %>%
 ```{r}
 add_original_metabolite_names(model_estimates, lipidomics)
 ```
+
+```{r}
+calculate_estimates <- function(data) {
+    data %>%
+        split_by_metabolite() %>%
+        purrr::map(generate_model_results) %>%
+        purrr::list_rbind() %>%
+        dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
+        add_original_metabolite_names(data)
+}
+
+lipidomics %>% calculate_estimates()
+```
