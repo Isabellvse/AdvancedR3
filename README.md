@@ -7,6 +7,9 @@ editor_options:
 
 # Title: Reproducible Research in R Advanced
 
+Check out the project's
+[website](https://isabellvse.github.io/AdvancedR3/).
+
 # AdvancedR3:
 
 This project is used to set up an easy and collaborative workflow in R.
@@ -38,3 +41,4 @@ You'll need to have remotes installed for this to work.
 For more information on this folder and file workflow and setup, check
 out the [prodigenr](https://rostools.github.io/prodigenr) online
 documentation.
+
