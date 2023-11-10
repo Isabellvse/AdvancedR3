@@ -85,10 +85,10 @@ create_model_workflow <- function(model_specs, recipe_specs) {
 #' @param workflow_fitted_model The model workflow object that has been fitted.
 #'
 #' @return A data frame.
-tidy_model_output <- function(workflow_fitted_model){
-    workflow_fitted_model %>%
-        workflows::extract_fit_parsnip() %>%
-        broom::tidy(exponentiate = TRUE)
+tidy_model_output <- function(workflow_fitted_model) {
+  workflow_fitted_model %>%
+    workflows::extract_fit_parsnip() %>%
+    broom::tidy(exponentiate = TRUE)
 }
 
 
@@ -98,10 +98,10 @@ tidy_model_output <- function(workflow_fitted_model){
 #'
 #' @return A list of data frames.
 split_by_metabolite <- function(data) {
-    data %>%
-        column_values_to_snake_case(metabolite) %>%
-        dplyr::group_split(metabolite) %>%
-        purrr::map(metabolites_to_wider)
+  data %>%
+    column_values_to_snake_case(metabolite) %>%
+    dplyr::group_split(metabolite) %>%
+    purrr::map(metabolites_to_wider)
 }
 
 #' Generate the results of a model
@@ -110,14 +110,14 @@ split_by_metabolite <- function(data) {
 #'
 #' @return A data frame.
 generate_model_results <- function(data) {
-    create_model_workflow(
-        parsnip::logistic_reg() %>%
-            parsnip::set_engine("glm"),
-        data %>%
-            create_recipe_spec(tidyselect::starts_with("metabolite_"))
-    ) %>%
-        parsnip::fit(data) %>%
-        tidy_model_output()
+  create_model_workflow(
+    parsnip::logistic_reg() %>%
+      parsnip::set_engine("glm"),
+    data %>%
+      create_recipe_spec(tidyselect::starts_with("metabolite_"))
+  ) %>%
+    parsnip::fit(data) %>%
+    tidy_model_output()
 }
 
 #' Add the original metabolite names (not as snakecase) to the model results.
@@ -126,13 +126,13 @@ generate_model_results <- function(data) {
 #' @param data The original, unprocessed lipidomics dataset.
 #'
 #' @return A dataframe
-add_original_metabolite_names <- function(model_results, data){
-    data %>%
-        dplyr::mutate(term = metabolite) %>%
-        column_values_to_snake_case(term) %>%
-        dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
-        dplyr::distinct(term, metabolite) %>%
-        dplyr::right_join(model_results, by = "term")
+add_original_metabolite_names <- function(model_results, data) {
+  data %>%
+    dplyr::mutate(term = metabolite) %>%
+    column_values_to_snake_case(term) %>%
+    dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
+    dplyr::distinct(term, metabolite) %>%
+    dplyr::right_join(model_results, by = "term")
 }
 
 #' Calculate the estimates for the model for each metabolite.
@@ -141,10 +141,27 @@ add_original_metabolite_names <- function(model_results, data){
 #'
 #' @return A data frame.
 calculate_estimates <- function(data) {
-    data %>%
-        split_by_metabolite() %>%
-        purrr::map(generate_model_results) %>%
-        purrr::list_rbind() %>%
-        dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
-        add_original_metabolite_names(data)
+  data %>%
+    split_by_metabolite() %>%
+    purrr::map(generate_model_results) %>%
+    purrr::list_rbind() %>%
+    dplyr::filter(stringr::str_detect(term, "metabolite_")) %>%
+    add_original_metabolite_names(data)
+}
+
+#' Plot estimates in forest plot
+#'
+#' @param results the model estimates
+#'
+#' @return a ggplot2 plot
+plot_estimates <- function(results) {
+  results %>%
+    ggplot2::ggplot(aes(
+      x = estimate,
+      y = metabolite,
+      xmin = estimate - std.error,
+      xmax = estimate + std.error
+    )) +
+    ggplot2::geom_pointrange() +
+    coord_fixed(xlim = c(0, 5))
 }

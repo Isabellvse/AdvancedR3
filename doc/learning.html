@@ -217,6 +217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="running-multiple-models" class="level3">
+<h3 class="anchored" data-anchor-id="running-multiple-models">Running multiple models</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_read</span>(df_stats_by_metabolite) <span class="sc">%&gt;%</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">MeanSD =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{value_mean} ({value_sd})"</span>)) <span class="sc">%&gt;%</span></span>
@@ -285,11 +287,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>model_estimates <span class="ot">&lt;-</span> lipidomics <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">split_by_metabolite</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    purrr<span class="sc">::</span><span class="fu">map</span>(generate_model_results) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    purrr<span class="sc">::</span><span class="fu">list_rbind</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(term, <span class="st">"metabolite_"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>model_estimates <span class="ot">&lt;-</span> lipidomics <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split_by_metabolite</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(generate_model_results) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">list_rbind</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(term, <span class="st">"metabolite_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: glm.fit: algorithm did not converge</code></pre>
 </div>
@@ -318,13 +320,13 @@ Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>lipidomics <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(metabolite) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">term =</span> metabolite) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column_values_to_snake_case</span>(term) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">term =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"metabolite_"</span>, term)) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">distinct</span>(term, metabolite) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">right_join</span>(model_estimates, <span class="at">by =</span> <span class="st">"term"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>lipidomics <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(metabolite) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">term =</span> metabolite) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_values_to_snake_case</span>(term) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">term =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"metabolite_"</span>, term)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(term, metabolite) <span class="sc">%&gt;%</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">right_join</span>(model_estimates, <span class="at">by =</span> <span class="st">"term"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 6
    term                         metabolite  estimate std.error statistic p.value
@@ -343,6 +345,19 @@ Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
 12 metabolite_cd_cl_3_solvent   CDCl3 (so… 8.70e-  2   8.65e-1 -2.82     0.00475</code></pre>
 </div>
 </div>
+</section>
+<section id="figure-of-model-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="figure-of-model-estimates">Figure of model estimates</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>model_estimates <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(df_model_estimates) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>model_estimates <span class="sc">%&gt;%</span> <span class="fu">plot_estimates</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="learning_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 </section>
 
 </main>
